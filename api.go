@@ -30,7 +30,7 @@ func getTrafficStats(conf config) {
 		if err != nil {
 			log.Printf("Error querying API for src=%s, dst=%s, resp=%s", track.Source, track.Destination, resp)
 		}
-		publishResults(resp, epoch)
+		publishResults(resp, epoch, track.Source, track.Destination)
 	}
 }
 
@@ -62,9 +62,11 @@ func doAPICall(conf config, src string, dst string, epoch string) ([]byte, error
 	return data, nil
 }
 
-func publishResults(resp []byte, epoch string) {
+func publishResults(resp []byte, epoch, src, dst string) {
 	startAddr, _ := jsonparser.GetString(resp, "routes", "[0]", "legs", "[0]", "start_address")
+	startAddr = src + ", " + startAddr
 	endAddr, _ := jsonparser.GetString(resp, "routes", "[0]", "legs", "[0]", "end_address")
+	endAddr = dst + ", " + endAddr
 	distance, _ := jsonparser.GetInt(resp, "routes", "[0]", "legs", "[0]", "distance", "value")
 	duration, _ := jsonparser.GetInt(resp, "routes", "[0]", "legs", "[0]", "duration", "value")
 	durationTraffic, _ := jsonparser.GetInt(resp, "routes", "[0]", "legs", "[0]", "duration_in_traffic", "value")
