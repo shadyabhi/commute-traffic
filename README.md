@@ -14,6 +14,10 @@ It's a WIP.
 		- source: Zonasha Elegance, Harlur Main Road
 		  destination: Slurp Cafe, Indiranagar
 
+	elasticsearch:
+		indexName: commute-traffic
+		docType: doc
+
 ## Run
 
 Once it's installed, you can run this as a periodic job. A sample run looks like:-
