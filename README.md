@@ -4,6 +4,8 @@ It's a WIP.
 
 ## Config file
 
+After cloning the project locally, create a file named `config.yaml` with the following contents.
+
 	apiKeys:
 		# Get API key from https://developers.google.com/maps/documentation/directions/get-api-key
 		- secret-api-key
