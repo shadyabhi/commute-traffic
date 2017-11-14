@@ -9,18 +9,24 @@ import (
 	elastic "gopkg.in/olivere/elastic.v5"
 )
 
-const mapping = `
-    doctype: {
-        'properties': {
-            'timestamp': { 'type': 'date', 'format': 'epoch_second', 'store': True },
-            'start_address': { 'type': 'string', 'store': True },
-            'end_address': { 'type': 'string', 'store': True },
+const mapping = `{
+        "settings":{
+                "number_of_shards":1,
+                "number_of_replicas":0
+        },
+        "mappings":{
+                "doc": {
+                        "properties": {
+                                "timestamp": { "type": "date", "format": "epoch_second", "store": True },
+                                "start_address": { "type": "string", "store": True },
+                                "end_address": { "type": "string", "store": True },
 
-            'distance': { 'type': 'long', 'store': True },
-            'duration': { 'type': 'long', 'store': True },
-            'duration_in_traffic': { 'type': 'long', 'store': True },
+                                "distance": { "type": "long", "store": True },
+                                "duration": { "type": "long", "store": True },
+                                "duration_in_traffic": { "type": "long", "store": True }
+                        }
+                }
         }
-    }
 }`
 
 func esIndexer(c config, wg *sync.WaitGroup) {
@@ -31,7 +37,7 @@ func esIndexer(c config, wg *sync.WaitGroup) {
 	}
 	err = createIndex(client, "commute-time", ctx)
 	if err != nil {
-		log.Printf("Error creating index in ES: %s", err)
+		log.Fatalf("Error creating index in ES: %s", err)
 	}
 
 	for i := 0; i < len(c.Tracks); i++ {
