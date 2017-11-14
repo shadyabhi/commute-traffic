@@ -14,6 +14,9 @@ type config struct {
 		Source      string `yaml:"source"`
 		Destination string `yaml:"destination"`
 	} `yaml:"tracks"`
+	Elasticsearch struct {
+		IndexName string `yaml:"indexName"`
+	}
 }
 
 func getConfig() (c config, err error) {

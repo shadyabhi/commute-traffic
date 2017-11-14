@@ -17,13 +17,12 @@ const mapping = `{
         "mappings":{
                 "doc": {
                         "properties": {
-                                "timestamp": { "type": "date", "format": "epoch_second", "store": True },
-                                "start_address": { "type": "string", "store": True },
-                                "end_address": { "type": "string", "store": True },
-
-                                "distance": { "type": "long", "store": True },
-                                "duration": { "type": "long", "store": True },
-                                "duration_in_traffic": { "type": "long", "store": True }
+                                "timestamp": { "type": "date", "format": "epoch_second", "store": "true" },
+                                "start_address": { "type": "string", "store": "true" },
+                                "end_address": { "type": "string", "store": "true" },
+                                "distance": { "type": "long", "store": "true" },
+                                "duration": { "type": "long", "store": "true" },
+                                "duration_in_traffic": { "type": "long", "store": "true" }
                         }
                 }
         }
@@ -35,7 +34,7 @@ func esIndexer(c config, wg *sync.WaitGroup) {
 	if err != nil {
 		log.Fatalf("Error connecting to ES: %s", err)
 	}
-	err = createIndex(client, "commute-time", ctx)
+	err = createIndex(client, c.Elasticsearch.IndexName, ctx)
 	if err != nil {
 		log.Fatalf("Error creating index in ES: %s", err)
 	}
@@ -43,7 +42,7 @@ func esIndexer(c config, wg *sync.WaitGroup) {
 	for i := 0; i < len(c.Tracks); i++ {
 		doc := <-results
 		_, err := client.Index().
-			Index("commute-time").
+			Index(c.Elasticsearch.IndexName).
 			Type("doc").
 			BodyJson(doc).
 			Do(ctx)
