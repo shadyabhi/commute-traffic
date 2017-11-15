@@ -2,6 +2,10 @@
 
 It's a WIP.
 
+## End result in Kibana
+
+![Screenshot](https://i.imgur.com/sG7VhVd.png)
+
 ## Config file
 
 After cloning the project locally, create a file named `config.yaml` with the following contents.
