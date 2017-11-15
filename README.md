@@ -1,6 +1,6 @@
 # commute-traffic
 
-This a Golang program that queries Google Maps API to get commute time between destinations specified in the config file & send them to Elasticsearch for analysis and generate beautiful graphs via Kibana.
+This a Golang program that queries Google Maps API to get commute time between destinations specified in the config file & then sends them to Elasticsearch for analysis and generate beautiful graphs via Kibana.
 
 ## End result in Kibana
 
