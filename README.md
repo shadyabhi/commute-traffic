@@ -1,8 +1,10 @@
 # commute-traffic
 
-It's a WIP.
+This a Golang program that queries Google Maps API to get commute time between destinations specified in the config file & send them to Elasticsearch for analysis and generate beautiful graphs via Kibana.
 
 ## End result in Kibana
+
+Once the data ends to Elasticsearch, you can do all sorts of analysis.
 
 ![Screenshot](https://i.imgur.com/sG7VhVd.png)
 
@@ -22,7 +24,6 @@ After cloning the project locally, create a file named `config.yaml` with the fo
 
 	elasticsearch:
 		indexName: commute-traffic
-		docType: doc
 
 ## Run
 
